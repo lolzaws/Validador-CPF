@@ -4,13 +4,14 @@ Baseado no "Algoritmo de Validação do CPF" no blog Macoratti(https://www.macor
 """
 
 # Valida entrada de usuário removendo pontos, hífens e espaços
-# retorna o CPF bruto em tipo int
+# retorna o CPF bruto em tipo str
 def validate_input(input: str) -> int:
     treated = input.replace('.', '').replace('-', '').replace(' ', '').strip()
+
     try:
-        inp = int(treated)
+        int(treated)
     except ValueError:
-        print("Somente números são aceitos.")
+        print("Somente números, pontos e hífens são aceitos.")
         exit()
     
     if len(treated) != 11:
@@ -18,7 +19,7 @@ def validate_input(input: str) -> int:
         exit()
     
     if len(treated) > 11:
-        print(f"O número que você ")
+        print(f"O número que você supriu é maior que 11 dígitos.")
     else:
         return treated
 
@@ -26,7 +27,7 @@ def validate_input(input: str) -> int:
 # Calcula as tabelas e os últimos dois digitos.
 # retorna 0 ou 11 menos o resto da divisão
 # da variável res
-def calculate_tables_and_digits(tables) -> int:
+def calculate_tables_and_digits(tables: list) -> int:
     calcs = []
     for i, number in enumerate(tables, start=2):
         calcs.append(i * number)
@@ -49,7 +50,7 @@ def calculate_tables_and_digits(tables) -> int:
 
 # Processa as tabelas e repassa para a função calculate_tables_and_digits()
 # retorna o cpf formatado
-def process_tables(cpf:str):
+def process_tables(cpf: str):
     list_cpf_nine_digits: list = [int(x) for x in cpf[:9]] # pega os 9 primeiros dígitos do cpf suprido
     list_cpf_nine_digits.reverse() # inverte a lista para calcular corretamente, do final para o início
     
@@ -73,7 +74,7 @@ def parse_cpf_string(table: list) -> str:
         
         if i % 9 == 0.0:
             cpf_str += '-'
-        
+
     return cpf_str.strip()
             
         
@@ -81,9 +82,9 @@ def parse_cpf_string(table: list) -> str:
 def main():
     #exemplo: '111.444.777-05', resultado: 111.444.777-35, situação: inválido
     original : str = input("Insira seu CPF: ")
-    parsed   : str = parse_cpf_string([x for x in original])
-    
     validated: int = validate_input(original)
+    
+    parsed   : str = parse_cpf_string([x for x in validated])
     expected : str = process_tables(validated)
     
     value = 'válido' if expected == parsed else 'inválido'
