@@ -15,7 +15,7 @@ def validate_input(input: str) -> int:
         exit()
     
     if len(treated) != 11:
-        print(f"Este CPF contém somente {len(inp)} de 11 dígitos")
+        print(f"Este CPF contém somente {len(treated)} de 11 dígitos")
         exit()
     
     if len(treated) > 11:
