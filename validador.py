@@ -5,7 +5,7 @@ Baseado no "Algoritmo de Validação do CPF" no blog Macoratti(https://www.macor
 
 # Valida entrada de usuário removendo pontos, hífens e espaços
 # retorna o CPF bruto em tipo str
-def validate_input(input: str) -> int:
+def validate_input(input: str) -> str:
     treated = input.replace('.', '').replace('-', '').replace(' ', '').strip()
 
     try:
